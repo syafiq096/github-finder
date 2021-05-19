@@ -1,10 +1,16 @@
+import React, { Component } from 'react';
+import './App.css';
 
-function App() {
-  return (
-    <div>
-      Hello Fam
-    </div>
-  );
+class App extends Component {
+
+  render() {
+    return (
+      <div className='App'>
+        Hello Fam
+      </div>
+    );
+  }
+
 }
 
 export default App;
