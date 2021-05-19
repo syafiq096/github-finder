@@ -3,10 +3,13 @@ import React, { Component } from 'react'
 export class NavBar extends Component {
     render() {
         return (
-            <div>
-                <h1>NavBar</h1>
-            </div>
-        )
+          <nav className='navbar bg-primary'>
+            <h1>
+              <i className='fab fa-git' />
+              {this.props.title}
+            </h1>
+          </nav>
+        );
     }
 }
 
