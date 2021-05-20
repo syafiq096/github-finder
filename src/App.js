@@ -23,7 +23,15 @@ function App() {
   }, []);
 
   const onSearch = (value) => {
-    console.log(`value`, value)
+    axios
+    .get(
+      `https://api.github.com/search/users?q=${value}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    )
+      .then((res) => {
+      console.log(`res`, res)
+      setUser(res.data.items);
+      setLoading(false);
+    });
   }
 
     return (
