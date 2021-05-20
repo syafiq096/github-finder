@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router";
 import Spinner from "../Components/Layout/Spinner";
+import Repos from '../Components/Repos/Repos'
 
 function UserInfo({ userInfo, loading, userRepo }) {
   const history = useHistory();
@@ -17,8 +18,6 @@ function UserInfo({ userInfo, loading, userRepo }) {
     public_repos,
     public_gists,
   } = userInfo;
-
-  console.log(`userRepo`, userRepo);
 
   const userCard = () => {
     return (
@@ -67,10 +66,15 @@ function UserInfo({ userInfo, loading, userRepo }) {
           <div className='badge badge-primary'>
             Public Gist: {public_gists ? public_gists : 0}
           </div>
-        </div>
+            </div>
+            <div style={{ marginTop: "40px" }}>
+                <h3>Latest 5 Repositories</h3>
+            <Repos repo={ userRepo }/>
+            </div>
+            
       </Fragment>
     );
-  };
+    };
 
   return <>{loading ? <Spinner /> : userCard()}</>;
 }
