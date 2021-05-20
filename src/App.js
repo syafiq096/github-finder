@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import NavBar from "./Components/Layout/NavBar";
 import User from "./Components/UserData/Users";
 import Search from "./Components/UserData/Search";
 import Alert from "./Components/Layout/Alert";
+import About from "./Pages/About";
 
 function App() {
   const [user, setUser] = useState([{}]);
@@ -70,25 +71,30 @@ function App() {
   };
 
   return (
-    <Router>
+    <BrowserRouter>
       <div className='App'>
         <NavBar title='Github Finder' />
         <div className='container'>
           <Alert alert={alert} />
           <Switch>
+            <Route path='/About'>
+              <About />
+            </Route>
             <Route path='/'>
-              <Search
-                searchValue={onSearch}
-                handleClear={handleClear}
-                showBtn={showBtn}
-                setAlert={(msg, type, show) => onAlert(msg, type, show)}
-              />
-              <User user={user} loading={loading} />
+              <Fragment>
+                <Search
+                  searchValue={onSearch}
+                  handleClear={handleClear}
+                  showBtn={showBtn}
+                  setAlert={(msg, type, show) => onAlert(msg, type, show)}
+                />
+                <User user={user} loading={loading} />
+              </Fragment>
             </Route>
           </Switch>
         </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
