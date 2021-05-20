@@ -10,6 +10,17 @@ function App() {
 
   const [user, setUser] = useState([{}]);
   const [loading, setLoading] = useState(true);
+  const [showBtn, setShowBtn] = useState(false);
+
+  useEffect(() => {
+    if (user.length > 1) {
+      console.log(`fire`);
+      setShowBtn(true)
+    } else {
+      setShowBtn(false);
+    }
+    
+  }, [user])
 
   useEffect(() => {
     axios
@@ -34,11 +45,15 @@ function App() {
     });
   }
 
+  const handleClear = () => {
+    setUser([{}])
+  }
+
     return (
       <div className='App'>
         <NavBar title='Github Finder' />
         <div className='container'>
-          <Search searchValue={onSearch} />
+          <Search searchValue={onSearch} handleClear={handleClear} showBtn={showBtn}/>
           <User user={user} loading={loading} />
         </div>
       </div>

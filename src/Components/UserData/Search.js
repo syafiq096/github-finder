@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 
-function Search({searchValue}) {
+function Search({searchValue, handleClear, showBtn}) {
     const [search, setSearch] = useState('')
 
     const handleSearch = (e) => {
         e.preventDefault();
         searchValue(search);
-        console.log(`search`, search)
+        setSearch('');
     }
+
+    console.log(`showBtn`, showBtn)
 
     return (
         <div>
@@ -15,7 +17,8 @@ function Search({searchValue}) {
                 <input type='text' name='search' onChange={e => setSearch(e.target.value)} value={search} placeholder='search' />
                 <input type='submit' value='search' onClick={handleSearch} className='btn btn-dark btn-block' />
             </form>
-            <button className='btn btn-light btn-block'>Clear</button>
+            {showBtn ? <button className='btn btn-light btn-block' onClick={handleClear}>Clear</button> : null}
+            
 
         </div>
     )
