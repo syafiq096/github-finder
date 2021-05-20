@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import NavBar from "./Components/Layout/NavBar";
 import User from "./Components/UserData/Users";
-class App extends Component {
-  render() {
+function App() {
+
     return (
       <div className='App'>
         <NavBar title='Github Finder' />
@@ -12,7 +12,7 @@ class App extends Component {
         </div>
       </div>
     );
-  }
+
 }
 
 export default App;
