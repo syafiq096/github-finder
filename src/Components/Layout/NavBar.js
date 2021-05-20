@@ -11,4 +11,8 @@ function NavBar({ title }) {
   );
 }
 
+NavBar.defaultProps = {
+  title: 'title'
+}
+
 export default NavBar;
