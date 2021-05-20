@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import NavBar from "./Components/Layout/NavBar";
@@ -65,23 +66,29 @@ function App() {
         type: "",
         show: false,
       });
-    }, 3000)
+    }, 3000);
   };
 
   return (
-    <div className='App'>
-      <NavBar title='Github Finder' />
-      <div className='container'>
-        <Alert alert={alert} />
-        <Search
-          searchValue={onSearch}
-          handleClear={handleClear}
-          showBtn={showBtn}
-          setAlert={(msg, type, show) => onAlert(msg, type, show)}
-        />
-        <User user={user} loading={loading} />
+    <Router>
+      <div className='App'>
+        <NavBar title='Github Finder' />
+        <div className='container'>
+          <Alert alert={alert} />
+          <Switch>
+            <Route path='/'>
+              <Search
+                searchValue={onSearch}
+                handleClear={handleClear}
+                showBtn={showBtn}
+                setAlert={(msg, type, show) => onAlert(msg, type, show)}
+              />
+              <User user={user} loading={loading} />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
