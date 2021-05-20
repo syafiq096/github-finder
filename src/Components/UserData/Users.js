@@ -2,7 +2,7 @@ import React from "react";
 import UserItem from "./Useritem";
 
 
-function Users({user, loading}) {
+function Users({user, loading, getUser}) {
   const userStyle = {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
@@ -12,7 +12,7 @@ function Users({user, loading}) {
   return (
     <div style={userStyle}>
       {user?.map((user) => {
-        return <UserItem key={user.id} userData={user} loading={loading} />;
+        return <UserItem key={user.id} userData={user} loading={loading} getUser={getUser} />;
       })}
     </div>
   );

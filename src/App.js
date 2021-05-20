@@ -62,6 +62,7 @@ function App() {
     .then((res) => {
       console.log(`res`, res)
       setLoading(false);
+      
     });
   }
 
@@ -91,8 +92,8 @@ function App() {
         <div className='container'>
           <Alert alert={alert} />
           <Switch>
-            <Route path='/User'>
-              <UserPage />
+            <Route path='/User/:login'>
+              <UserPage userInfo={userInfo} />
             </Route>
             <Route path='/About'>
               <About />
@@ -105,7 +106,7 @@ function App() {
                   showBtn={showBtn}
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
                 />
-                <User user={user} loading={loading} />
+                <User user={user} loading={loading} getUser={getUser} />
               </Fragment>
             </Route>
           </Switch>

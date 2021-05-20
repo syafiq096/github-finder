@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Spinner from "../Layout/Spinner";
 
-function Useritem({ userData, loading }) {
-  const { login, avatar_url, html_url } = userData;
+function Useritem({ userData, loading, getUser }) {
+  const { login, avatar_url } = userData;
   return (
     <>
       {loading ? (
@@ -16,10 +17,12 @@ function Useritem({ userData, loading }) {
             style={{ width: "60px" }}
           />
           <h3>{login}</h3>
-          <div>
-            <a href={html_url} className='btn btn-dark btn-sm my-1'>
-              More
-            </a>
+            <div>
+            <Link to={`/User/${login}`}>
+            <button onClick={() => getUser(login)} className='btn btn-dark btn-sm my-1'>
+                  More
+            </button>
+            </Link>
           </div>
         </div>
       )}
