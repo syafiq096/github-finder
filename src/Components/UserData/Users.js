@@ -10,15 +10,24 @@ function Users() {
   };
 
   useEffect(() => {
-    axios.get("https://api.github.com/users").then((res) => setUser(res.data));
+    axios
+      .get(
+        `https://api.github.com/users=?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
+        client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        setUser(res.data);
+        setLoading(false);
+      });
   }, []);
 
-    const [user, setUser] = useState([{}]);
+  const [user, setUser] = useState([{}]);
+  const [loading, setLoading] = useState(true);
 
   return (
     <div style={userStyle}>
       {user?.map((user) => {
-        return <UserItem key={user.id} userData={user} />;
+        return <UserItem key={user.id} userData={user} loading={loading} />;
       })}
     </div>
   );
