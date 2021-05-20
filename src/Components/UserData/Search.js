@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 
-function Search({searchValue, handleClear, showBtn}) {
+function Search({searchValue, handleClear, showBtn, setAlert}) {
     const [search, setSearch] = useState('')
 
     const handleSearch = (e) => {
         e.preventDefault();
-        searchValue(search);
-        setSearch('');
+        if (!search) {
+            setAlert('Please enter something', 'danger', true);
+        } else {
+            searchValue(search);
+            setSearch('');
+        }
+
     }
 
     console.log(`showBtn`, showBtn)
