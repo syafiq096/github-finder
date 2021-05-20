@@ -1,45 +1,27 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import UserItem from "./Useritem";
+import axios from "axios";
 
-export class Users extends Component {
-  state = {
-    users: [
-      {
-        id: "1",
-        login: "mojombo",
-        avatar_url: "https://avatars.githubusercontent.com/u/1?v=4",
-        html_url: "https://github.com/mojombo",
-      },
-      {
-        id: "2",
-        login: "defunkt",
-        avatar_url: "https://avatars.githubusercontent.com/u/2?v=4",
-        html_url: "https://github.com/defunkt",
-      },
-      {
-        id: "3",
-        login: "pjhyett",
-        avatar_url: "https://avatars.githubusercontent.com/u/3?v=4",
-        html_url: "https://github.com/pjhyett",
-      },
-    ],
+function Users() {
+  const userStyle = {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: "1rem",
   };
 
-  render() {
-    return (
-      <div style={userStyle}>
-        {this.state.users.map((user) => {
-          return <UserItem key={user.id} userData={user} />;
-        })}
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    axios.get("https://api.github.com/users").then((res) => setUser(res.data));
+  }, []);
 
-const userStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridGap: '1rem'
+    const [user, setUser] = useState([{}]);
+
+  return (
+    <div style={userStyle}>
+      {user?.map((user) => {
+        return <UserItem key={user.id} userData={user} />;
+      })}
+    </div>
+  );
 }
 
 export default Users;
