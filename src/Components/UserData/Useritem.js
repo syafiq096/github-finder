@@ -1,6 +1,6 @@
 import React from "react";
 
-function Useritem(userData) {
+function Useritem({userData}) {
   const { login, avatar_url, html_url } = userData;
     return (
       <div className='card text-center'>
