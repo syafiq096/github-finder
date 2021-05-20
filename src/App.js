@@ -8,9 +8,11 @@ import User from "./Components/UserData/Users";
 import Search from "./Components/UserData/Search";
 import Alert from "./Components/Layout/Alert";
 import About from "./Pages/About";
+import UserPage from "./Pages/UserInfo";
 
 function App() {
   const [user, setUser] = useState([{}]);
+  const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
   const [alert, setAlert] = useState({
@@ -46,10 +48,22 @@ function App() {
       )
       .then((res) => {
         console.log(`res`, res);
-        setUser(res.data.items);
+        setUserInfo(res.data);
         setLoading(false);
       });
   };
+
+  const getUser = async (username) => {
+    setLoading(true);
+    await axios
+    .get(
+      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    )
+    .then((res) => {
+      console.log(`res`, res)
+      setLoading(false);
+    });
+  }
 
   const handleClear = () => {
     setUser([{}]);
@@ -77,6 +91,9 @@ function App() {
         <div className='container'>
           <Alert alert={alert} />
           <Switch>
+            <Route path='/User'>
+              <UserPage />
+            </Route>
             <Route path='/About'>
               <About />
             </Route>
