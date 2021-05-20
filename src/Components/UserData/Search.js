@@ -15,6 +15,8 @@ function Search({searchValue}) {
                 <input type='text' name='search' onChange={e => setSearch(e.target.value)} value={search} placeholder='search' />
                 <input type='submit' value='search' onClick={handleSearch} className='btn btn-dark btn-block' />
             </form>
+            <button className='btn btn-light btn-block'>Clear</button>
+
         </div>
     )
 }
