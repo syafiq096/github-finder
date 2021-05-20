@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NavBar({ title }) {
   return (
@@ -7,12 +8,20 @@ function NavBar({ title }) {
         <i className='fab fa-git' />
         {title}
       </h1>
+      <ul>
+        <li>
+          <Link to={"/"}>Home</Link>
+        </li>
+        <li>
+          <Link to={"/About"}>About</Link>
+        </li>
+      </ul>
     </nav>
   );
 }
 
 NavBar.defaultProps = {
-  title: 'title'
-}
+  title: "title",
+};
 
 export default NavBar;
