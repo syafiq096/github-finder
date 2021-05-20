@@ -23,7 +23,6 @@ function App() {
 
   useEffect(() => {
     if (user.length > 1) {
-      console.log(`fire`);
       setShowBtn(true);
     } else {
       setShowBtn(false);
@@ -60,7 +59,8 @@ function App() {
       `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     )
     .then((res) => {
-      console.log(`res`, res)
+      console.log(`res`, res);
+      setUserInfo(res.data);
       setLoading(false);
       
     });
@@ -93,7 +93,7 @@ function App() {
           <Alert alert={alert} />
           <Switch>
             <Route path='/User/:login'>
-              <UserPage userInfo={userInfo} />
+              <UserPage userInfo={userInfo} loading={loading} />
             </Route>
             <Route path='/About'>
               <About />
