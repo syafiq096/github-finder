@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useHistory } from "react-router";
 import Spinner from "../Components/Layout/Spinner";
 
-function UserInfo({ userInfo, loading }) {
+function UserInfo({ userInfo, loading, userRepo }) {
   const history = useHistory();
   const {
     avatar_url,
@@ -12,13 +12,13 @@ function UserInfo({ userInfo, loading }) {
     html_url,
     company,
     website,
-      followers,
-      following,
-      public_repos,
-      public_gists
+    followers,
+    following,
+    public_repos,
+    public_gists,
   } = userInfo;
 
-  console.log(`userInfo`, userInfo);
+  console.log(`userRepo`, userRepo);
 
   const userCard = () => {
     return (
@@ -46,11 +46,11 @@ function UserInfo({ userInfo, loading }) {
               <h3>Bio</h3>
               <p>{bio ? bio : "User got no bio to display"}</p>
             </div>
-            
+
             <div style={{ marginTop: "20px" }}>
               <a href={html_url}>Go to github profile</a>
             </div>
-                    
+
             <div style={{ marginTop: "20px" }}>
               <p>Username: {login}</p>
               <p>Company: {company ? company : "-"}</p>
@@ -59,10 +59,14 @@ function UserInfo({ userInfo, loading }) {
           </div>
         </div>
         <div className='card text-center'>
-                <div className='badge badge-primary'>Followers: {followers}</div>
-                <div className='badge badge-primary'>Following: {following}</div>
-                <div className='badge badge-primary'>Public Repos: {public_repos}</div>
-                <div className='badge badge-primary'>Public Gist: {public_gists? public_gists : 0}</div>
+          <div className='badge badge-primary'>Followers: {followers}</div>
+          <div className='badge badge-primary'>Following: {following}</div>
+          <div className='badge badge-primary'>
+            Public Repos: {public_repos}
+          </div>
+          <div className='badge badge-primary'>
+            Public Gist: {public_gists ? public_gists : 0}
+          </div>
         </div>
       </Fragment>
     );

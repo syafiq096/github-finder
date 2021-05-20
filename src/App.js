@@ -13,6 +13,7 @@ import UserPage from "./Pages/UserInfo";
 function App() {
   const [user, setUser] = useState([{}]);
   const [userInfo, setUserInfo] = useState({});
+  const [userRepo, setUserRepo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
   const [alert, setAlert] = useState({
@@ -40,10 +41,11 @@ function App() {
       });
   }, []);
 
-  const onSearch = (value) => {
-    axios
+  const onSearch = async (value) => {
+    await axios
       .get(
-        `https://api.github.com/search/users?q=${value}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        `https://api.github.com/search/users?q=${value}&client_id=
+        ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
       )
       .then((res) => {
         console.log(`res`, res);
@@ -55,16 +57,29 @@ function App() {
   const getUser = async (username) => {
     setLoading(true);
     await axios
-    .get(
-      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    )
-    .then((res) => {
-      console.log(`res`, res);
-      setUserInfo(res.data);
-      setLoading(false);
-      
-    });
-  }
+      .get(
+        `https://api.github.com/users/${username}?client_id=
+      ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        console.log(`res`, res);
+        setUserInfo(res.data);
+        setLoading(false);
+      });
+  };
+
+  const getUserRepo = async (username) => {
+    setLoading(true);
+    await axios
+      .get(
+        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=
+        ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        setUserRepo(res.data);
+        setLoading(false);
+      });
+  };
 
   const handleClear = () => {
     setUser([{}]);
@@ -93,7 +108,11 @@ function App() {
           <Alert alert={alert} />
           <Switch>
             <Route path='/User/:login'>
-              <UserPage userInfo={userInfo} loading={loading} />
+              <UserPage
+                userInfo={userInfo}
+                userRepo={userRepo}
+                loading={loading}
+              />
             </Route>
             <Route path='/About'>
               <About />
@@ -106,7 +125,12 @@ function App() {
                   showBtn={showBtn}
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
                 />
-                <User user={user} loading={loading} getUser={getUser} />
+                <User
+                  user={user}
+                  loading={loading}
+                  getUser={getUser}
+                  getUserRepo={getUserRepo}
+                />
               </Fragment>
             </Route>
           </Switch>
