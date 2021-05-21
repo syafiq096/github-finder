@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import GithubContext from '../../Context/github/githubContext'
 
-function Search({ handleClear, showBtn, setAlert }) {
+function Search({ handleClear, setAlert }) {
     const context = useContext(GithubContext)
     const [search, setSearch] = useState('')
 
@@ -13,10 +13,7 @@ function Search({ handleClear, showBtn, setAlert }) {
             context.searchUsers(search)
             setSearch('');
         }
-
     }
-
-    console.log(`showBtn`, showBtn)
 
     return (
         <div>
@@ -24,7 +21,7 @@ function Search({ handleClear, showBtn, setAlert }) {
                 <input type='text' name='search' onChange={e => setSearch(e.target.value)} value={search} placeholder='search' />
                 <input type='submit' value='search' onClick={handleSearch} className='btn btn-dark btn-block' />
             </form>
-            {showBtn ? <button className='btn btn-light btn-block' onClick={handleClear}>Clear</button> : null}
+            {context.userList ? <button className='btn btn-light btn-block' onClick={handleClear}>Clear</button> : null}
             
 
         </div>

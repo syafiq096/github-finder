@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -16,20 +16,19 @@ function App() {
   const [user, setUser] = useState([{}]);
   const [userRepo, setUserRepo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showBtn, setShowBtn] = useState(false);
   const [alert, setAlert] = useState({
     text: "",
     type: "",
     show: false,
   });
 
-  useEffect(() => {
-    if (user.length > 1) {
-      setShowBtn(true);
-    } else {
-      setShowBtn(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (context.userList) {
+  //     setShowBtn(true);
+  //   } else {
+  //     setShowBtn(false);
+  //   }
+  // }, [user]);
 
   const getUserRepo = async (username) => {
     setLoading(true);
@@ -83,7 +82,6 @@ function App() {
               <Fragment>
                 <Search
                   handleClear={handleClear}
-                  showBtn={showBtn}
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
                 />
                 <User
