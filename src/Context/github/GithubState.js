@@ -61,6 +61,16 @@ function GithubState({ children }) {
   };
 
   // get repositories
+  const getUserRepo = async (username) => {
+    await axios
+      .get(
+        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=
+        ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        dispatch({type:GET_REPOS, payload: res.data});
+      });
+  };
 
   // clear user list
   const clearUserList = () => {
@@ -83,6 +93,7 @@ function GithubState({ children }) {
         getUserList,
         clearUserList,
         getUser,
+        getUserRepo,
       }}
     >
       {children}

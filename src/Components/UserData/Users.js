@@ -3,7 +3,7 @@ import GithubContext from '../../Context/github/githubContext';
 
 import UserItem from "./Useritem";
 
-function Users({ getUserRepo }) {
+function Users() {
   const context = useContext(GithubContext);
   const userStyle = {
     display: "grid",
@@ -23,8 +23,6 @@ function Users({ getUserRepo }) {
             key={user.id}
             userData={user}
             loading={context.loading}
-            // getUser={getUser}
-            getUserRepo={getUserRepo}
           />
         );
       })}

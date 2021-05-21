@@ -4,9 +4,9 @@ import { useHistory } from "react-router";
 import Spinner from "../Components/Layout/Spinner";
 import Repos from '../Components/Repos/Repos'
 
-function UserInfo({ userRepo }) {
+function UserInfo() {
   const context = useContext(GithubContext);
-  const { user, loading } = context;
+  const { user, loading, repos } = context;
   const history = useHistory();
   const {
     avatar_url,
@@ -72,7 +72,7 @@ function UserInfo({ userRepo }) {
             </div>
             <div style={{ marginTop: "40px" }}>
                 <h3>Latest 5 Repositories</h3>
-            <Repos repo={ userRepo }/>
+            <Repos repo={ repos }/>
             </div>
             
       </Fragment>

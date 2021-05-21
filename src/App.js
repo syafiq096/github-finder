@@ -13,26 +13,11 @@ import About from "./Pages/About";
 import UserPage from "./Pages/UserInfo";
 
 function App() {
-  const [userRepo, setUserRepo] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState({
     text: "",
     type: "",
     show: false,
   });
-
-  const getUserRepo = async (username) => {
-    setLoading(true);
-    await axios
-      .get(
-        `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=
-        ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      )
-      .then((res) => {
-        setUserRepo(res.data);
-        setLoading(false);
-      });
-  };
 
   const onAlert = (msg, type, show) => {
     setAlert({
@@ -58,9 +43,7 @@ function App() {
           <Alert alert={alert} />
           <Switch>
             <Route path='/User/:login'>
-              <UserPage
-                userRepo={userRepo}
-              />
+              <UserPage />
             </Route>
             <Route path='/About'>
               <About />
@@ -70,9 +53,7 @@ function App() {
                 <Search
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
                 />
-                <User
-                  getUserRepo={getUserRepo}
-                />
+                <User />
               </Fragment>
             </Route>
           </Switch>
