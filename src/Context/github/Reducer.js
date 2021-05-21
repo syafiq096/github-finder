@@ -5,10 +5,17 @@ import {
     SET_ALERT,
     SET_LOADING,
     REMOVE_ALERT,
+    GET_USER_INFO
 } from "../types";
   
 export default (state, action) => {
     switch (action.type) {
+        case GET_USER_INFO:
+            return {
+                ...state,
+                user: action.payload,
+                loading: false,
+            }
         case GET_USER:
             return {
                 ...state,

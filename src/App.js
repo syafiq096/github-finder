@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -33,10 +33,6 @@ function App() {
         setLoading(false);
       });
   };
-
-  // const handleClear = () => {
-  //   setUser([{}]);
-  // };
 
   const onAlert = (msg, type, show) => {
     setAlert({

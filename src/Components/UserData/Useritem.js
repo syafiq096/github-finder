@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import GithubContext from '../../Context/github/githubContext'
 import Spinner from "../Layout/Spinner";
 
 function Useritem({ userData, loading, getUserRepo }) {
+  const context = useContext(GithubContext);
   const { login, avatar_url } = userData;
+  const { getUser } = context;
   return (
     <>
       {loading ? (
@@ -20,7 +23,7 @@ function Useritem({ userData, loading, getUserRepo }) {
             <div>
             <Link to={`/User/${login}`}>
                 <button onClick={() => {
-                  // getUser(login);
+                  getUser(login);
                   getUserRepo(login)
                 }} className='btn btn-dark btn-sm my-1'>
                   More

@@ -5,6 +5,7 @@ import Reducer from "./Reducer";
 import {
   SEARCH_USER,
   GET_USER,
+  GET_USER_INFO,
   GET_REPOS,
   SET_ALERT,
   SET_LOADING,
@@ -34,7 +35,7 @@ function GithubState({ children }) {
       });
   };
 
-  // get user
+  // get userList
   const getUserList = () => {
     setLoading();
     axios
@@ -46,9 +47,25 @@ function GithubState({ children }) {
       });
   };
 
+  // get user info
+  const getUser = async (username) => {
+    setLoading();
+    await axios
+      .get(
+        `https://api.github.com/users/${username}?client_id=
+      ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        dispatch({ type: GET_USER_INFO, payload: res.data });
+      });
+  };
+
   // get repositories
 
   // clear user list
+  const clearUserList = () => {
+    dispatch({ type: GET_USER, payload: initialState.userList });
+  };
 
   // loading
   const setLoading = () => {
@@ -64,6 +81,8 @@ function GithubState({ children }) {
         loading: state.loading,
         searchUsers,
         getUserList,
+        clearUserList,
+        getUser,
       }}
     >
       {children}

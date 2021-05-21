@@ -1,9 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import GithubContext from '../Context/github/githubContext'
 import { useHistory } from "react-router";
 import Spinner from "../Components/Layout/Spinner";
 import Repos from '../Components/Repos/Repos'
 
-function UserInfo({ userInfo, loading, userRepo }) {
+function UserInfo({ userRepo }) {
+  const context = useContext(GithubContext);
+  const { user, loading } = context;
   const history = useHistory();
   const {
     avatar_url,
@@ -17,7 +20,7 @@ function UserInfo({ userInfo, loading, userRepo }) {
     following,
     public_repos,
     public_gists,
-  } = userInfo;
+  } = user;
 
   const userCard = () => {
     return (
