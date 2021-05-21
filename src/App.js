@@ -13,7 +13,6 @@ import About from "./Pages/About";
 import UserPage from "./Pages/UserInfo";
 
 function App() {
-  const [user, setUser] = useState([{}]);
   const [userRepo, setUserRepo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState({
@@ -21,14 +20,6 @@ function App() {
     type: "",
     show: false,
   });
-
-  // useEffect(() => {
-  //   if (context.userList) {
-  //     setShowBtn(true);
-  //   } else {
-  //     setShowBtn(false);
-  //   }
-  // }, [user]);
 
   const getUserRepo = async (username) => {
     setLoading(true);
@@ -43,9 +34,9 @@ function App() {
       });
   };
 
-  const handleClear = () => {
-    setUser([{}]);
-  };
+  // const handleClear = () => {
+  //   setUser([{}]);
+  // };
 
   const onAlert = (msg, type, show) => {
     setAlert({
@@ -81,11 +72,9 @@ function App() {
             <Route path='/'>
               <Fragment>
                 <Search
-                  handleClear={handleClear}
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
                 />
                 <User
-                  user={user}
                   getUserRepo={getUserRepo}
                 />
               </Fragment>
