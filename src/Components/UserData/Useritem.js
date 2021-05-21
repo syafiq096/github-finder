@@ -1,34 +1,39 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import GithubContext from '../../Context/github/githubContext'
+import Spinner from "../Layout/Spinner";
 
-export class Useritem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      id: "1",
-      login: "mojombo",
-      avatar_url: "https://avatars.githubusercontent.com/u/1?v=4",
-      html_url: "https://github.com/mojombo",
-    };
-  }
-    render() {
-      const { id, login, avatar_url, html_url } = this.props;
-    return (
-      <div className='card text-center'>
-        <img
-          src={avatar_url}
-          alt=''
-          className='round-img'
-          style={{ width: "60px" }}
-        />
-        <h3>{login}</h3>
-        <div>
-          <a href={html_url} className='btn btn-dark btn-sm my-1'>
-            More
-          </a>
+function Useritem({ userData, loading }) {
+  const context = useContext(GithubContext);
+  const { login, avatar_url } = userData;
+  const { getUser, getUserRepo } = context;
+  return (
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className='card text-center'>
+          <img
+            src={avatar_url}
+            alt=''
+            className='round-img'
+            style={{ width: "60px" }}
+          />
+          <h3>{login}</h3>
+            <div>
+            <Link to={`/User/${login}`}>
+                <button onClick={() => {
+                  getUser(login);
+                  getUserRepo(login);
+                }} className='btn btn-dark btn-sm my-1'>
+                  More
+            </button>
+            </Link>
+          </div>
         </div>
-      </div>
-    );
-  }
+      )}
+    </>
+  );
 }
 
 export default Useritem;
