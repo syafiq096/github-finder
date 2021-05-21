@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import GithubState from './Context/github/GithubState';
+
 import "./App.css";
 import NavBar from "./Components/Layout/NavBar";
 import User from "./Components/UserData/Users";
@@ -40,19 +42,6 @@ function App() {
         setLoading(false);
       });
   }, []);
-
-  const onSearch = async (value) => {
-    await axios
-      .get(
-        `https://api.github.com/search/users?q=${value}&client_id=
-        ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      )
-      .then((res) => {
-        console.log(`res`, res);
-        setUserInfo(res.data);
-        setLoading(false);
-      });
-  };
 
   const getUser = async (username) => {
     setLoading(true);
@@ -101,6 +90,7 @@ function App() {
   };
 
   return (
+    <GithubState>
     <BrowserRouter>
       <div className='App'>
         <NavBar title='Github Finder' />
@@ -120,7 +110,6 @@ function App() {
             <Route path='/'>
               <Fragment>
                 <Search
-                  searchValue={onSearch}
                   handleClear={handleClear}
                   showBtn={showBtn}
                   setAlert={(msg, type, show) => onAlert(msg, type, show)}
@@ -136,7 +125,8 @@ function App() {
           </Switch>
         </div>
       </div>
-    </BrowserRouter>
+      </BrowserRouter>
+      </GithubState>
   );
 }
 

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import GithubContext from '../../Context/github/githubContext'
 
-function Search({searchValue, handleClear, showBtn, setAlert}) {
+function Search({ handleClear, showBtn, setAlert }) {
+    const context = useContext(GithubContext)
     const [search, setSearch] = useState('')
 
     const handleSearch = (e) => {
@@ -8,7 +10,7 @@ function Search({searchValue, handleClear, showBtn, setAlert}) {
         if (!search) {
             setAlert('Please enter something', 'danger', true);
         } else {
-            searchValue(search);
+            context.searchUsers(search)
             setSearch('');
         }
 
