@@ -31,31 +31,6 @@ function App() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //     )
-  //     .then((res) => {
-  //       setUser(res.data);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // const getUser = async (username) => {
-  //   setLoading(true);
-  //   await axios
-  //     .get(
-  //       `https://api.github.com/users/${username}?client_id=
-  //     ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //     )
-  //     .then((res) => {
-  //       console.log(`res`, res);
-  //       setUserInfo(res.data);
-  //       setLoading(false);
-  //     });
-  // };
-
   const getUserRepo = async (username) => {
     setLoading(true);
     await axios
