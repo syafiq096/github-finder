@@ -31,21 +31,20 @@ function GithubState({ children }) {
       )
       .then((res) => {
         dispatch({ type: SEARCH_USER, payload: res.data.items });
-        setLoading();
       });
   };
 
   // get user
-  // const getUserList = () => {
-  //     axios
-  //   .get(
-  //     `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //   )
-  //   .then((res) => {
-  //     setUser(res.data);
-  //     setLoading(false);
-  //   });
-  // }
+  const getUserList = () => {
+    setLoading();
+    axios
+      .get(
+        `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      )
+      .then((res) => {
+        dispatch({ type: GET_USER, payload: res.data });
+      });
+  };
 
   // get repositories
 
@@ -64,6 +63,7 @@ function GithubState({ children }) {
         user: state.user,
         loading: state.loading,
         searchUsers,
+        getUserList,
       }}
     >
       {children}

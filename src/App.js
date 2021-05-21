@@ -14,7 +14,6 @@ import UserPage from "./Pages/UserInfo";
 
 function App() {
   const [user, setUser] = useState([{}]);
-  const [userInfo, setUserInfo] = useState({});
   const [userRepo, setUserRepo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
@@ -32,30 +31,30 @@ function App() {
     }
   }, [user]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      )
-      .then((res) => {
-        setUser(res.data);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  //     )
+  //     .then((res) => {
+  //       setUser(res.data);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
-  const getUser = async (username) => {
-    setLoading(true);
-    await axios
-      .get(
-        `https://api.github.com/users/${username}?client_id=
-      ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-      )
-      .then((res) => {
-        console.log(`res`, res);
-        setUserInfo(res.data);
-        setLoading(false);
-      });
-  };
+  // const getUser = async (username) => {
+  //   setLoading(true);
+  //   await axios
+  //     .get(
+  //       `https://api.github.com/users/${username}?client_id=
+  //     ${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  //     )
+  //     .then((res) => {
+  //       console.log(`res`, res);
+  //       setUserInfo(res.data);
+  //       setLoading(false);
+  //     });
+  // };
 
   const getUserRepo = async (username) => {
     setLoading(true);
@@ -99,9 +98,7 @@ function App() {
           <Switch>
             <Route path='/User/:login'>
               <UserPage
-                userInfo={userInfo}
                 userRepo={userRepo}
-                loading={loading}
               />
             </Route>
             <Route path='/About'>
@@ -116,8 +113,6 @@ function App() {
                 />
                 <User
                   user={user}
-                  loading={loading}
-                  getUser={getUser}
                   getUserRepo={getUserRepo}
                 />
               </Fragment>
